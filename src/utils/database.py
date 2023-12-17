@@ -4,7 +4,7 @@ import MySQLdb
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'passwd': '12345678',
+    'passwd': 'password',
     'db': 'MediCareHub',
 }
 

@@ -2,8 +2,8 @@ CREATE DATABASE IF NOT EXISTS MediCareHub;
 USE MediCareHub;
 
 -- Patients table
-CREATE TABLE Patient (
-    PatientID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Patient (
+    PatientID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(30) NOT NULL,
     LastName VARCHAR(30) NOT NULL,
     PhoneNumber VARCHAR(11) NOT NULL,
@@ -16,22 +16,22 @@ CREATE TABLE Patient (
 );
 
 -- Room Type table
-CREATE TABLE RoomType (
-    TypeID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS RoomType (
+    TypeID INT AUTO_INCREMENT PRIMARY KEY,
     TypeDescription VARCHAR(30)
 );
 
 -- Room table
-CREATE TABLE Room (
-    RoomNumber INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Room (
+    RoomNumber INT AUTO_INCREMENT PRIMARY KEY,
     RoomCapacity INT,
     RoomTypeID INT,
     FOREIGN KEY (RoomTypeID) REFERENCES RoomType(TypeID)
 );
 
 -- Doctor table
-CREATE TABLE Doctor (
-    DoctorID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Doctor (
+    DoctorID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(30),
     LastName VARCHAR(30),
     PhoneNumber VARCHAR(11),
@@ -43,8 +43,8 @@ CREATE TABLE Doctor (
 );
 
 -- Nurse table
-CREATE TABLE Nurse (
-    NurseID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Nurse (
+    NurseID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
     PhoneNumber VARCHAR(11),
@@ -55,8 +55,8 @@ CREATE TABLE Nurse (
 );
 
 -- Ward Boys table
-CREATE TABLE WardBoy (
-    WardBoyID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS WardBoy (
+    WardBoyID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
     PhoneNumber VARCHAR(11),
@@ -66,9 +66,9 @@ CREATE TABLE WardBoy (
 );
 
 -- Disease Record table
-CREATE TABLE DiseaseRecord (
+CREATE TABLE IF NOT EXISTS DiseaseRecord (
+    RecordID INT AUTO_INCREMENT,
     PatientID INT,
-    RecordID INT,
     AssignedRoomNumber INT,
     AssignedDoctorID INT,
     DiseaseDescription VARCHAR(255),
@@ -85,31 +85,39 @@ CREATE TABLE DiseaseRecord (
 );
 
 -- Bill table
-CREATE TABLE Bill (
-    BillID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Bill (
+    BillID INT AUTO_INCREMENT PRIMARY KEY,
     PatientID INT,
     BillAmount DECIMAL(10, 2),
     BillingDate DATE,
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID)
 );
 
-CREATE TRIGGER BillInsertTrigger
+DELIMITER //
+CREATE TRIGGER IF NOT EXISTS BillInsertTrigger
 AFTER INSERT ON Bill FOR EACH ROW
 BEGIN
     UPDATE Patient
     SET Balance = Balance + NEW.BillAmount
     WHERE PatientID = NEW.PatientID;
 END;
+//
+DELIMITER ;
 
-CREATE TRIGGER RecordInsertTrigger
+DELIMITER //
+CREATE TRIGGER IF NOT EXISTS RecordInsertTrigger
 AFTER INSERT ON DiseaseRecord FOR EACH ROW
 BEGIN
     UPDATE Patient
     SET Balance = Balance - NEW.TreatmentCost
     WHERE PatientID = NEW.PatientID;
 END;
+//
+DELIMITER ;
 
-CREATE TRIGGER BeforeInsertDiseaseRecord
+
+DELIMITER //
+CREATE TRIGGER IF NOT EXISTS BeforeInsertDiseaseRecord
 BEFORE INSERT ON DiseaseRecord FOR EACH ROW
 BEGIN
     DECLARE numRecords INT;
@@ -123,3 +131,5 @@ BEGIN
     SET NumberOfRecords = NumberOfRecords + 1
     WHERE PatientID = NEW.PatientID;
 END;
+//
+DELIMITER ;
