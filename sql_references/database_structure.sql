@@ -37,7 +37,9 @@ CREATE TABLE Doctor (
     PhoneNumber VARCHAR(11),
     EmailAddress VARCHAR(320),
     JobTitle VARCHAR(255),
-    Salary DECIMAL(10, 2)
+    OfficeNumber INT,
+    Salary DECIMAL(10, 2),
+    FOREIGN KEY (OfficeNumber) REFERENCES Room(RoomNumber)
 );
 
 -- Nurse table
@@ -47,7 +49,9 @@ CREATE TABLE Nurse (
     LastName VARCHAR(255),
     PhoneNumber VARCHAR(11),
     EmailAddress VARCHAR(320),
-    Salary DECIMAL(10, 2)
+    RoomNumber INT,
+    Salary DECIMAL(10, 2),
+    FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber)
 );
 
 -- Ward Boys table
@@ -56,7 +60,9 @@ CREATE TABLE WardBoy (
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
     PhoneNumber VARCHAR(11),
-    Salary DECIMAL(10, 2)
+    RoomNumber INT,
+    Salary DECIMAL(10, 2),
+    FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber)
 );
 
 -- Disease Record table
