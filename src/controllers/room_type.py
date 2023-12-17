@@ -1,8 +1,8 @@
 from src.utils.database import conn
-from models.room_type import Room_Type
+from models.room_type import RoomType
 
 
-def new_room_type(new_room_type: Room_Type):
+def new_room_type(new_room_type: RoomType):
     cursor = conn.cursor()
     query = "INSERT INTO RoomType (TypeDescription) VALUES (%s)"
     cursor.execute(query, (new_room_type.type_description,))
@@ -11,5 +11,5 @@ def new_room_type(new_room_type: Room_Type):
     return new_room_type
 
 
-r1 = Room_Type(type_description="room2")
+r1 = RoomType(type_description="room2")
 new_room_type(r1)
