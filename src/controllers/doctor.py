@@ -1,4 +1,4 @@
-from src.models.doctor import Doctor
+from models.doctor import Doctor
 from src.utils.database import conn
 
 
