@@ -1,5 +1,6 @@
 from person import Person
 
-class Nurse(Person):
+
+class WardBoy(Person):
     salary: int
     room_number: int
