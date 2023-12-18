@@ -4,7 +4,8 @@ class Person:
     last_name: str
     phone: str
 
-    def __init__(self, first_name: str, last_name: str, phone: str) -> None:
+    def __init__(self, person_id: int, first_name: str, last_name: str, phone: str) -> None:
+        self.id = person_id
         self.first_name = first_name
         self.last_name = last_name
         self.phone = phone

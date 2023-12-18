@@ -9,10 +9,10 @@ class Patient(Person):
     balance: float
     number_of_records: int
 
-    def __init__(self, first_name: str, last_name: str, phone: str,
+    def __init__(self, person_id: int, first_name: str, last_name: str, phone: str,
                  gender: int, date_of_birth: datetime, home_address: str,
                  balance: float, number_of_records: int) -> None:
-        super().__init__(first_name, last_name, phone)
+        super().__init__(person_id, first_name, last_name, phone)
         self.gender = gender
         self.date_of_birth = date_of_birth
         self.home_address = home_address

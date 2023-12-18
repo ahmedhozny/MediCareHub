@@ -6,9 +6,9 @@ class Nurse(Person):
     email: str
     room_number: int
 
-    def __init__(self, first_name: str, last_name: str, phone: str,
+    def __init__(self, id: int, first_name: str, last_name: str, phone: str,
                  salary: int, email: str, room_number: int) -> None:
-        super().__init__(first_name, last_name, phone)
+        super().__init__(id, first_name, last_name, phone)
         self.salary = salary
         self.email = email
         self.room_number = room_number
