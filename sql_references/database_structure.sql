@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS RoomType (
 
 -- Room table
 CREATE TABLE IF NOT EXISTS Room (
-    RoomNumber INT AUTO_INCREMENT PRIMARY KEY,
+    RoomID INT AUTO_INCREMENT PRIMARY KEY,
+    RoomNumber INT UNIQUE,
     RoomCapacity INT,
     RoomTypeID INT,
     FOREIGN KEY (RoomTypeID) REFERENCES RoomType(TypeID)
@@ -67,7 +68,7 @@ CREATE TABLE IF NOT EXISTS WardBoy (
 
 -- Disease Record table
 CREATE TABLE IF NOT EXISTS DiseaseRecord (
-    RecordID INT AUTO_INCREMENT,
+    RecordID INT ,
     PatientID INT,
     AssignedRoomNumber INT,
     AssignedDoctorID INT,
