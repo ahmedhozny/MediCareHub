@@ -1,4 +1,4 @@
-from person import Person
+from src.models.person import Person
 
 
 class Nurse(Person):
