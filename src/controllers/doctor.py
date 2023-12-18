@@ -1,6 +1,6 @@
 from typing import List
-from models import doctor
-from models.doctor import Doctor
+from src.models import doctor
+from src.models.doctor import Doctor
 from src.utils.database import conn
 
 
@@ -36,3 +36,5 @@ def read_item(item_id: int):
     item = cursor.fetchone()
     cursor.close()
     return {"id": item[0], "name": item[1], "description": item[2]}
+
+new(Doctor("Ahmed", "Hosny", "12345678901", "CCCC", 123, "aae@fa.com", 3))
