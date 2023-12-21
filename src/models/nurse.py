@@ -2,18 +2,35 @@ from src.models.person import Person
 
 
 class Nurse(Person):
-    salary: int
     email: str
-    room_number: int
+    room_id: int
+    salary: float
 
-    def __init__(self, id: int, first_name: str, last_name: str, phone: str,
-                 salary: int, email: str, room_number: int) -> None:
+    @staticmethod
+    def relation_attribute_name() -> dict:
+        return (Person.relation_attribute_name() | {
+            'Email': 'email',
+            "RoomID": "room_id",
+            "Salary": "salary"
+        })
+
+    def __init__(self, id: int | None, first_name: str, last_name: str, phone: str,
+                 email: str, room_id: int, salary: float) -> None:
         super().__init__(id, first_name, last_name, phone)
-        self.salary = salary
         self.email = email
-        self.room_number = room_number
+        self.room_id = room_id
+        self.salary = salary
 
-    def display_info(self):
-        super().display_info()
-        print(
-            f"Salary: {self.salary}, Email: {self.email}, Room Number: {self.room_number}")
+    def __str__(self):
+        return f"{super().__str__()}, Email: {self.email}, Room ID: {self.room_id}, Salary: {self.salary}"
+
+    def __dict__(self) -> dict:
+        return {
+            "ID": self.id,
+            "FirstName": self.first_name,
+            "LastName": self.last_name,
+            "Phone": self.phone,
+            "Email": self.email,
+            "RoomID": self.room_id,
+            "Salary": self.salary
+        }
